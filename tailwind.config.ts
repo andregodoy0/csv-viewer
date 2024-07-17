@@ -10,5 +10,8 @@ export default {
       },
     },
   },
+  daisyui: {
+    themes: ["garden"],
+  },
   plugins: [require("daisyui")],
 } satisfies Config;
