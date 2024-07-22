@@ -13,19 +13,25 @@ const fallbackdata = [
 ] as Record<string, unknown>[];
 
 // TODO organize formatters
+const numberFormatter = new Intl.NumberFormat(navigator.language, {
+  style: "currency",
+  currency: "USD",
+});
+const dateFormatter = new Intl.DateTimeFormat(navigator.language, {
+  timeZone: "America/Sao_Paulo",
+});
 const textCell = (props: { getValue: () => string | number }) => <div className="text-left">{props.getValue()}</div>;
 const numberCell = (props: { getValue: () => string | number }) => <div className="text-right">{props.getValue()}</div>;
 const currencyCell = (props: { getValue: () => string | number }) => (
-  <div className="text-right">
-    {new Intl.NumberFormat(navigator.language, {
-      style: "currency",
-      currency: "USD",
-    }).format(props.getValue() as number)}
-  </div>
+  <div className="text-right">{numberFormatter.format(props.getValue() as number)}</div>
 );
-const dateCell = (props: { getValue: () => string | number }) => (
-  <div className="text-right">{new Intl.DateTimeFormat(navigator.language).format(new Date(props.getValue()))}</div>
-);
+const dateCell = (props: { getValue: () => string | number }) => {
+  try {
+    return <div className="text-right">{dateFormatter.format(new Date(props.getValue()))}</div>;
+  } catch {
+    return <div className="text-right">{props.getValue()}</div>;
+  }
+};
 
 const CELL_FORMATTERS = {
   number: numberCell,
