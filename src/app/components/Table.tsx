@@ -138,7 +138,7 @@ const Table = () => {
           </button>
         </form>
       </div>
-      <table className="table table-zebra mt-8 border-cyan-600">
+      <table className="table table-zebra mt-8 bg-rose-50">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr className="text-center capitalize" key={headerGroup.id}>
